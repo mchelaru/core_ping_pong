@@ -1,0 +1,10 @@
+[package]
+name = "core_ping_pong"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.105"
+core_affinity = "0.8.3"
+libc = "0.2.191"
+raw-cpuid = "11.6.0"
