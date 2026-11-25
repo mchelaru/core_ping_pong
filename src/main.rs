@@ -5,7 +5,7 @@ use std::thread;
 use std::time::{Duration, Instant};
 
 const ROUNDS: usize = 50_000;
-const WARMUP: u64 = 1_000;
+const WARMUP: u64 = 10_000_000;
 const CACHE_LINE: usize = 128;
 
 /// One flag per cache line; each side only ever writes its own line.
@@ -178,6 +178,7 @@ fn main() -> anyhow::Result<()> {
 fn ping(ping_flag: &Flag, pong_flag: &Flag) -> Vec<u64> {
     let mut samples = Vec::with_capacity(ROUNDS);
 
+    println!("Warming up...");
     for seq in 1..=WARMUP {
         ping_flag.value.store(seq, Ordering::Release);
         while pong_flag.value.load(Ordering::Acquire) != seq {
